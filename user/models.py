@@ -9,4 +9,5 @@ class CustomUser(AbstractUser):
     age = models.PositiveIntegerField()
     bio = models.CharField(max_length=140)
 
+    REQUIRED_FIELDS = ['email', 'age', ]
 
