@@ -1,9 +1,49 @@
 {% extends 'base.html' %}
 
 {%  block title %}
-    {{ user.username }}
+    User - {{ user.username }}
 {%  endblock title %}
 
 {%  block content %}
-    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+
+    <div id="header">
+        <ul>
+                <a href="{%  url 'logout' %}">logout</a>
+        </ul>
+    </div>
+
+    <div id="usercontainer">
+        <div id="user">
+            <ul>
+                <li>
+                    <img src="http://placekitten.com/100/200" />
+                </li>
+                <li>
+                    {{ user.username }}
+                </li>
+                <li>
+                    {{ user.date_joined|date:"F, Y" }}
+                </li>
+                <li>
+                    {{ user.bio }}
+                </li>
+            </ul>
+
+
+            <p>Follow Feature to come.</p>
+        </div>
+
+        <div id="tweets">
+            {%  for tweet in tweets %}
+                <div class="tweet">
+                    <p class="tweet-top">
+                        {{ user.first_name }} {{ user.last_name }}
+                        <a href="#">@{{ user.username }}</a>
+                        {{ tweet.date|date:"M, j, Y" }}
+                    </p>
+                    <p class="tweet-bottom">{{ tweet.tweet }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {%  endblock content %}

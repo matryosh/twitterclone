@@ -1,8 +1,11 @@
+{%  load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{%  block title %} {% endblock title %}</title>
+    <title>{%  block title %} Twitter Clone {% endblock title %}</title>
+    <link rel="stylesheet" type="text/css" href="{%  static 'homepage.css' %}" >
+    {% block css %} {% endblock css %}
 </head>
 <body>
 
@@ -11,5 +14,6 @@
         {% endblock content %}
     </main>
 
+    {% block javascript %}{% endblock javascript %}
 </body>
 </html>

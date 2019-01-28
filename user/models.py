@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 class CustomBaseUserManager(BaseUserManager):
 
-    def create_user(self, age, email, username, password=None ):
+    def create_user(self, age, email, username, password=None):
         if not email:
             raise ValueError("You need an email address")
 
@@ -50,4 +50,10 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+class FollowFollowerModel(models.Model):
+
+    pass
+
 

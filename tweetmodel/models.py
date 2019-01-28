@@ -9,7 +9,7 @@ class TweetModelBase(models.Model):
 
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
-    likes = models.PositiveIntegerField()
+    likes = models.PositiveIntegerField(default=0)
 
     date = models.DateTimeField(auto_now=True)
 
@@ -21,6 +21,10 @@ class TweetModelBase(models.Model):
 class TweetModel(TweetModelBase):
 
     tweet = models.CharField(max_length=140, default='')
+
+    def __str__(self):
+
+        return self.user.email.split('@')[0] + ': ' + self.tweet[0:9]
 
 
 class TweetPictureModel(TweetModelBase):

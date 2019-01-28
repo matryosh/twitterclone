@@ -1,3 +1,5 @@
 twitterclone\twitterclone\settings.py
 venv
 twitterclone\user\migrations
+tweetmodel\migrations
+media

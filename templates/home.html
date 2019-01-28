@@ -1,1 +1,47 @@
-<h1>This is the home page.</h1>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div id="header">
+        <ul>
+            {% if user.is_authenticated %}
+                <a href="{%  url 'logout' %}">logout</a>
+            {% else %}
+                <li>
+                    <a href="#">signup</a>
+                </li>
+                <li>
+                    <a href="{%  url 'users:login' %}">login</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <!--<div>-->
+        <img id="landingpageimage"  src="http://placekitten.com/600/300">
+    <!--</div>-->
+
+    <div id="landingpagetext">
+        <div id="landingpagetext-1">
+            A clone of most of the basic features of Twitter. It's not exact but I'm trying to get close.
+        </div>
+
+        <div id="landingpagetext-2">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur cursus ipsum lorem, quis elementum dolor
+                viverra ut. Sed porttitor, justo a elementum ultricies, augue lectus laoreet metus, et imperdiet ante lacus a nunc.
+                Morbi tellus enim, mattis pharetra lacus ac, facilisis vehicula nunc. Nam accumsan lacinia augue, eu placerat arcu.
+            </p>
+        </div>
+
+        <div id="landingpagetext-3">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur cursus ipsum lorem, quis elementum dolor
+                viverra ut. Sed porttitor, justo a elementum ultricies, augue lectus laoreet metus, et imperdiet ante lacus a nunc.
+                Morbi tellus enim, mattis pharetra lacus ac, facilisis vehicula nunc. Nam accumsan lacinia augue, eu placerat arcu.
+            </p>
+        </div>
+    </div>
+
+    <div>
+        <button>Sign up!</button>
+    </div>
+{% endblock content %}
