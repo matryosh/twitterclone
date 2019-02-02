@@ -42,6 +42,7 @@ class CustomUser(AbstractUser):
     bio = models.CharField(max_length=140)
     email = models.EmailField(unique=True, blank=False, max_length=254, verbose_name='email address')
 
+
     objects = CustomBaseUserManager
 
     USERNAME_FIELD = 'email'

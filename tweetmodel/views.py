@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.core.exceptions import PermissionDenied
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
@@ -31,7 +31,21 @@ class DeleteTweet(LoginRequiredMixin, DeleteView):
 
     model = TweetModel
 
-    success_url = reverse_lazy('userpage.html')
+    template_name = 'delete_tweet.html'
+
+    login_url = 'users:login'
+
+    def get_success_url(self):
+
+        return reverse('users:userpage', args=[self.request.user.username], )
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+
+        if obj.user != self.request.user:
+            raise PermissionDenied
+
+        return super().delete(request, *args, **kwargs)
 
 
 class ViewTweet(DetailView):
