@@ -1,6 +1,7 @@
 from django.db import models
-
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth import get_user_model
+from .renameandupload import path_and_rename
 # Create your models here.
 
 
@@ -42,7 +43,6 @@ class CustomUser(AbstractUser):
     bio = models.CharField(max_length=140)
     email = models.EmailField(unique=True, blank=False, max_length=254, verbose_name='email address')
 
-
     objects = CustomBaseUserManager
 
     USERNAME_FIELD = 'email'
@@ -57,4 +57,14 @@ class FollowFollowerModel(models.Model):
 
     pass
 
+
+class UserPictureModel(models.Model):
+
+    user = models.ForeignKey(get_user_model())
+
+    profilepicture = models.ImageField(upload_to=path_and_rename)
+
+    def __str__(self):
+
+        return self.user + '\' profile picture'
 

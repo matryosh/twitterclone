@@ -1,13 +1,14 @@
 from django.shortcuts import render
 
-from django.views.generic import CreateView, TemplateView, DetailView
+from django.views.generic import CreateView, DetailView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.views.decorators.cache import cache_page
 # Create your views here.
 
 from .forms import CustomUserCreationForm
-from .models import CustomUser
+from .models import CustomUser, UserPictureModel
 from tweetmodel.models import TweetModel
 
 
@@ -20,7 +21,8 @@ class CreateUserView(CreateView):
     template_name = 'registration/signup.html'
 
 
-class UserHomePage(DetailView):
+@cache_page(1200)
+class UserHomePage(LoginRequiredMixin, DetailView):
 
     template_name = 'userpage.html'
 
@@ -36,6 +38,7 @@ class UserHomePage(DetailView):
 
         context = super(UserHomePage, self).get_context_data(**kwargs)
         context['tweets'] = TweetModel.objects.all()
+        context['profilepicture'] = UserPictureModel.objects.all()
         return context
 
 
