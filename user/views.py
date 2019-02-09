@@ -1,10 +1,10 @@
 from django.shortcuts import render
 
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.views.decorators.cache import cache_page
+from django.contrib.auth import get_user_model
 # Create your views here.
 
 from .forms import CustomUserCreationForm
@@ -21,7 +21,6 @@ class CreateUserView(CreateView):
     template_name = 'registration/signup.html'
 
 
-@cache_page(1200)
 class UserHomePage(LoginRequiredMixin, DetailView):
 
     template_name = 'userpage.html'
@@ -38,8 +37,32 @@ class UserHomePage(LoginRequiredMixin, DetailView):
 
         context = super(UserHomePage, self).get_context_data(**kwargs)
         context['tweets'] = TweetModel.objects.all()
-        context['profilepicture'] = UserPictureModel.objects.all()
+        context['userpicture'] = UserPictureModel.objects.get(user=self.request.user)
         return context
+
+
+class UpdateUser(LoginRequiredMixin, UpdateView):
+
+    model = get_user_model()
+
+    fields = ('bio', )
+
+    template_name = 'edituserpage.html'
+
+    slug_field = 'username'
+
+    slug_url_kwarg = 'username'
+
+    def get_success_url(self):
+
+        return reverse('users:userpage', args=[self.request.user.username], )
+
+    """def get_context_data(self, **kwargs):
+
+        context = super(UpdateUser, self).get_context_data(**kwargs)
+        context['profilepicture'] = UserPictureModel.objects.all()
+
+        return context"""
 
 
 class CustomLogin(LoginView):
