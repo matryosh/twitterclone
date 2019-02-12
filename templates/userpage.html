@@ -16,7 +16,7 @@
         <div id="user">
             <ul>
                 <li>
-                    <img src="{{ userpicture.profilepicture.url }}" />
+                    <a href="{% url 'users:updateprofilepicture' userpicture.pk %}"><img src="{{ userpicture.profilepicture.url }}" /></a>
                 </li>
                 <li>
                     {{ user.username }}

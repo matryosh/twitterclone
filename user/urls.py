@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.decorators.cache import cache_page
 
-from .views import CreateUserView, UserHomePage, CustomLogin, UpdateUser
+from .views import CreateUserView, UserHomePage, CustomLogin, UpdateUser, UpdateProfilePicture
 
 app_name = 'users'
 
@@ -10,6 +10,7 @@ urlpatterns = [
     path('login/', CustomLogin.as_view(), name="login"),
     path('<slug:username>/', UserHomePage.as_view(), name="userpage"),
     path('<slug:username>/update/', UpdateUser.as_view(), name="updateuserpage"),
+    path('<int:pk>/updatepicture/', UpdateProfilePicture.as_view(), name='updateprofilepicture'),
 ]
 
 #cache_page(60*15)

@@ -57,12 +57,23 @@ class UpdateUser(LoginRequiredMixin, UpdateView):
 
         return reverse('users:userpage', args=[self.request.user.username], )
 
-    """def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):
 
         context = super(UpdateUser, self).get_context_data(**kwargs)
-        context['profilepicture'] = UserPictureModel.objects.all()
 
-        return context"""
+        return context
+
+
+class UpdateProfilePicture(LoginRequiredMixin, UpdateView):
+
+    model = UserPictureModel
+
+    fields = ('profilepicture',)
+
+    template_name = 'updateprofilepicture.html'
+
+    def get_success_url(self):
+        return reverse('users:userpage', args=[self.request.user.username], )
 
 
 class CustomLogin(LoginView):
