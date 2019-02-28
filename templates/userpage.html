@@ -16,7 +16,13 @@
         <div id="user">
             <ul>
                 <li>
-                    <a href="{% url 'users:updateprofilepicture' userpicture.pk %}"><img src="{{ userpicture.profilepicture.url }}" /></a>
+                    <a href="{% url 'users:updateprofilepicture' userpicture.pk %}">
+                        {%  if userpicture.user != null %}
+                        <img src="{{ userpicture.profilepicture.url }}" />
+                        {% else %}
+                        <img src="https://placekitten.com/200/300" />
+                        {% endif %}
+                    </a>
                 </li>
                 <li>
                     {{ user.username }}
